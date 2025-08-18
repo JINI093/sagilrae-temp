@@ -12,15 +12,8 @@
     //모바일/PC 스크립트 인식 구분
     document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#mok_popup").addEventListener("click", function () {
-        // 개발 환경에서는 시뮬레이션 모드로 동작
-        try {
-            // 실제 PASS SDK 호출 시도
-            MOBILEOK.process("https://withroyal.dothome.co.kr/mok_std_request.php", "WB", "result");
-        } catch (e) {
-            console.log("PASS SDK 오류, 시뮬레이션 모드로 전환:", e);
-            // 시뮬레이션 모드로 대체
-            simulatePassAuth();
-        }
+        // 실제 운영 PHP 엔드포인트로 요청 (GitHub Pages는 PHP 미지원)
+        MOBILEOK.process("https://sagilrae.com/mok/mok_std_request.php", "WB", "result");
     })
     // document.querySelector("#mok_move").addEventListener("click", function () {
         // 모바일 전용서비스로 페이지 이동처리 또는 카카오 브라우져 등 새창으로 처리가 어려운 환경 또는 브라우져에서 처리
@@ -32,25 +25,9 @@
     try {
         result = JSON.parse(result);
         document.querySelector("#result").value = JSON.stringify(result, null, 4);
-        
-        // Flutter WebView로 결과 전송
-        if (window.PassChannel && window.PassChannel.postMessage) {
-            window.PassChannel.postMessage(JSON.stringify(result));
-        }
     } catch (error) {
         document.querySelector("#result").value = result;
-        
-        // 에러 시에도 Flutter로 전송
-        if (window.PassChannel && window.PassChannel.postMessage) {
-            window.PassChannel.postMessage(result);
-        }
     }
-    }
-    
-    // 시뮬레이션 모드
-    function simulatePassAuth() {
-        // 시뮬레이션 페이지로 이동
-        window.location.href = 'mok_simple.html';
     }
 </script>
 <style>
