@@ -13,6 +13,7 @@
     document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#mok_popup").addEventListener("click", function () {
         // 실제 운영 PHP 엔드포인트로 요청 (GitHub Pages는 PHP 미지원)
+        // WebView 등 팝업이 어려운 환경에서는 페이지 이동(redirect) 모드를 사용
         MOBILEOK.process("https://sagilrae.com/mok/mok_std_request.php", "WB", "");
     })
     // document.querySelector("#mok_move").addEventListener("click", function () {
@@ -86,5 +87,4 @@
 <!--    </div>-->
 </div>
 </body>
-
 </html>
